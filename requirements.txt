@@ -1,0 +1,6 @@
+streamlit
+flask
+joblib
+tensorflow
+keras
+gradio
