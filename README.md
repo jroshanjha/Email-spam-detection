@@ -76,8 +76,8 @@ Flask API: http://localhost:5000
 pip install gradio tensorflow joblib
 python app.py
 
- Running on local URL:  http://127.0.0.1:7860
-
+Running on local URL:  http://127.0.0.1:7860
+Running on public URL: https://e941041fbc01fde488.gradio.live
 # API 
 http://localhost:5000/api/predicit
 Input:  { "text": "Congratulations, you've won!" }

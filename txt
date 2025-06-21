@@ -1,0 +1,55 @@
+===== Build Queued at 2025-06-21 16:55:15 / Commit SHA: 3a97579 =====
+
+--> FROM docker.io/library/python:3.10@sha256:33f72df2ad8c9f777bf0adb35b9d89c5d62935cee2af1f9c3224fb6f7da1dc6b
+DONE 0.0s
+
+--> RUN pip install --no-cache-dir pip -U && 	pip install --no-cache-dir 	datasets 	"huggingface-hub>=0.19" "hf_xet>=1.0.0,<2.0.0" "hf-transfer>=0.1.4" "protobuf<4" "click<8.1" "pydantic~=1.0"
+CACHED
+
+--> WORKDIR /home/user/app
+CACHED
+
+--> RUN apt-get update && apt-get install -y 	git 	git-lfs 	ffmpeg 	libsm6 	libxext6 	cmake 	rsync 	libgl1-mesa-glx 	&& rm -rf /var/lib/apt/lists/* 	&& git lfs install
+CACHED
+
+--> RUN 	apt-get update && 	apt-get install -y curl && 	curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && 	apt-get install -y nodejs && 	rm -rf /var/lib/apt/lists/* && apt-get clean
+CACHED
+
+--> RUN apt-get update && apt-get install -y fakeroot &&     mv /usr/bin/apt-get /usr/bin/.apt-get &&     echo '#!/usr/bin/env sh\nfakeroot /usr/bin/.apt-get $@' > /usr/bin/apt-get &&     chmod +x /usr/bin/apt-get && 	rm -rf /var/lib/apt/lists/* && 	useradd -m -u 1000 user
+CACHED
+
+--> RUN --mount=target=/tmp/requirements.txt,source=requirements.txt     pip install --no-cache-dir -r /tmp/requirements.txt
+CACHED
+
+--> COPY --chown=1000:1000 --from=root / /
+CACHED
+
+--> RUN pip freeze > /tmp/freeze.txt
+CACHED
+
+--> RUN pip install --no-cache-dir 	gradio[oauth]==5.0.1 	"uvicorn>=0.14.0" 	spaces
+CACHED
+
+--> COPY --link --chown=1000 ./ /home/user/app
+DONE 0.0s
+
+--> COPY --from=pipfreeze --link --chown=1000 /tmp/freeze.txt /tmp/freeze.txt
+DONE 0.0s
+
+--> Pushing image
+DONE 0.9s
+
+--> Exporting cache
+DONE 0.9s
+
+// Build 
+
+===== Application Startup at 2025-06-21 16:55:23 =====
+
+/usr/local/lib/python3.10/site-packages/gradio/components/chatbot.py:228: UserWarning: The 'tuples' format for chatbot messages is deprecated and will be removed in a future version of Gradio. Please set type='messages' instead, which uses openai-style 'role' and 'content' keys.
+  warnings.warn(
+* Running on local URL:  http://0.0.0.0:7860, with SSR ⚡
+
+To create a public link, set `share=True` in `launch()`.
+
+// Container
