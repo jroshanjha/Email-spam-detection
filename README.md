@@ -1,4 +1,4 @@
-# 📧 Spam Detection App (ML + LSTM + Streamlit + Flask + )
+# 📧 Spam Detection App (ML + LSTM + Streamlit + Flask + Gradio)
 A simple ML/DL-powered spam detector using TensorFlow + Gradio, deployed on Hugging Face Spaces.
 
 This project predicts whether an email is **Spam** or **Not Spam** using:

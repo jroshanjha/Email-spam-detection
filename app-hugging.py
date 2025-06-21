@@ -43,4 +43,4 @@ iface = gr.Interface(
     description="Powered by LSTM + AttentionLayer with Gradio"
 )
 
-iface.launch()
+iface.launch(share=True)
