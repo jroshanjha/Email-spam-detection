@@ -1,3 +1,39 @@
+# name: Deploy Spam Detection App
+
+# on:
+#   push:
+#     branches: [ main ]
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.10
+
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
+
+#     - name: Run unit tests
+#       run: echo "Run test cases here"
+
+#     - name: Build Docker Image
+#       run: docker build -t spam-detector-app .
+
+#     - name: Push to Docker Hub
+#       run: echo "Add Docker login and push logic here"
+
+#     - name: Deploy to Render/Vercel
+#       run: echo "Add deployment logic here"
+
+
 name: Deploy Spam Detection App
 
 on:
@@ -9,26 +45,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: 3.10
+        python-version: "3.10"
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run unit tests
-      run: echo "Run test cases here"
+    - name: Run Unit Tests (Optional)
+      run: |
+        echo "✅ Add test scripts here (e.g. pytest)"
+
+    - name: Log in to Docker Hub
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
     - name: Build Docker Image
-      run: docker build -t spam-detector-app .
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/spam-detector-app:latest .
 
-    - name: Push to Docker Hub
-      run: echo "Add Docker login and push logic here"
+    - name: Push Docker Image
+      run: |
+        docker push ${{ secrets.DOCKER_USERNAME }}/spam-detector-app:latest
 
-    - name: Deploy to Render/Vercel
-      run: echo "Add deployment logic here"
+    # Optional Render/Vercel Deployment Hook
+    - name: Deploy to Render
+      run: |
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+
+    # - name: Deploy to Vercel
+    #   run: |
+    #     npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+
