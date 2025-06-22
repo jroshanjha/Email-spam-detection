@@ -1,6 +1,18 @@
 # 📧 Spam Detection App (ML + LSTM + Streamlit + Flask + Gradio)
 A simple ML/DL-powered spam detector using TensorFlow + Gradio, deployed on Hugging Face Spaces.
 
+Built a hybrid ML + DL system to classify email text as Spam or Not Spam using TF-IDF + StackingClassifier and a BiLSTM model with a custom Attention Layer.
+
+Developed a RESTful Flask API and interactive Streamlit and Gradio UIs for real-time predictions.
+
+Implemented overfitting control techniques: Dropout, EarlyStopping, and ReduceLROnPlateau.
+
+Evaluated models using Accuracy, Precision, and ROC-AUC scores for reliability in production use.
+
+Packaged and deployed the application using Docker, and automated testing/deployment with GitHub Actions CI/CD.
+
+Hosted on Hugging Face Spaces for public access and testing with Gradio frontend.
+
 This project predicts whether an email is **Spam** or **Not Spam** using:
 - ✅ ML (StackingClassifier: RandomForest + GradientBoost + LogisticRegression)
 - ✅ DL (BiLSTM + AttentionLayer)
